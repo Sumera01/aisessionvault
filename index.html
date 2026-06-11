@@ -1,96 +1,2311 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="/_vercel/insights/script.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"
-    />
-    <title>Vercel HTML Starter</title>
-    <meta
-      name="description"
-      content="High-performance HTML based website template."
-    />
-  </head>
-  <body>
-    <h1>Vercel HTML Starter</h1>
-    <p>
-      This template is a simple, but powerful single
-      <code>index.html</code> file deployed to
-      <a href="https://vercel.com">Vercel</a>. When your site is deployed, all
-      static assets (like HTML, JavaScript, CSS, images, and more) are deployed
-      globally to every
-      <a href="https://vercel.com/docs/concepts/edge-network/overview"
-        >Vercel Edge Network</a
-      >
-      region.
-    </p>
-    <h2>Simple, privacy-friendly analytics</h2>
-    <p>
-      Want to understand your visitor traffic? Vercel Analytics gives you
-      first-party, privacy-friendly traffic analytics for your HTML site. This
-      template is already configured using the following script:
-    </p>
-    <pre><code>&lt;script defer src="/_vercel/insights/script.js"&gt;&lt;/script&gt;</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/analytics">Vercel Analytics</a>.
-    </p>
-    <h2>Integrated with git</h2>
-    <p>
-      Deploying updates to your site is as simple as
-      <code>git push</code> thanks to Vercel's advanced
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-      Support for GitHub, GitLab, Bitbucket is zero-configuration, and with the
-      flexible Vercel CLI and API, you can integrate with any tool possible.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-    </p>
-    <h2>Fast <code>gzip</code> compression</h2>
-    <p>
-      To help ensure the smallest possible file sizes for your static assets,
-      the Vercel Edge Network compresses files by default using
-      <code>gzip</code>. You can also optionally use
-      <code>brotli</code> compressesion if you prefer.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/edge-network/compression"
-        >compression</a
-      >.
-    </p>
-    <h2>Advanced routing configuration</h2>
-    <p>
-      Vercel gives you a variety of ways to configure the routing of your
-      website. For example, adding redirects, rewrites, or headers to your page.
-      While you can use <code>vercel.json</code> to define these through JSON,
-      you can also express your routing configuration as code using
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-    <p>
-      Middleware runs before the
-      <a href="https://vercel.com/docs/concepts/edge-network/caching"
-        >Vercel Edge Network Cache</a
-      >, so you can configure routing exactly as your application needs. For
-      example, this template uses <code>middleware.js</code> defined in the root
-      of the repository to add additional security headers to the site:
-    </p>
-    <pre><code>referrer-policy: origin-when-cross-origin
-strict-transport-security: max-age=31536000; includeSubDomains; preload
-x-content-type-options: nosniff
-x-dns-prefetch-control: on
-x-frame-options: DENY</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Session Vault — Organize every AI conversation</title>
+<style>
+  /* ============================================
+     CSS VARIABLES & DESIGN TOKENS
+  ============================================ */
+  :root {
+    --bg-base:       #0a0a0f;
+    --bg-surface:    #111118;
+    --bg-elevated:   #16161f;
+    --bg-overlay:    #1c1c28;
+    --bg-hover:      #20202e;
+
+    --border-subtle: rgba(255,255,255,0.06);
+    --border-default:rgba(255,255,255,0.10);
+    --border-strong: rgba(255,255,255,0.18);
+
+    --text-primary:  #f0f0f8;
+    --text-secondary:#9898b8;
+    --text-muted:    #5a5a7a;
+    --text-inverse:  #0a0a0f;
+
+    --accent:        #7c6af7;
+    --accent-light:  #a594ff;
+    --accent-glow:   rgba(124,106,247,0.25);
+    --accent-subtle: rgba(124,106,247,0.10);
+
+    --cyan:          #00d4c8;
+    --cyan-subtle:   rgba(0,212,200,0.10);
+    --pink:          #f066c8;
+    --pink-subtle:   rgba(240,102,200,0.10);
+    --amber:         #f5a623;
+    --amber-subtle:  rgba(245,166,35,0.10);
+    --green:         #34d16e;
+    --green-subtle:  rgba(52,209,110,0.10);
+
+    --tool-chatgpt:  #10a37f;
+    --tool-claude:   #cc785c;
+    --tool-gemini:   #4285f4;
+    --tool-grok:     #1da1f2;
+    --tool-perplexity:#20b8cd;
+    --tool-deepseek: #6366f1;
+    --tool-copilot:  #0078d4;
+    --tool-other:    #9898b8;
+
+    --radius-sm:     6px;
+    --radius-md:     10px;
+    --radius-lg:     14px;
+    --radius-xl:     20px;
+    --radius-full:   9999px;
+
+    --shadow-sm:     0 1px 3px rgba(0,0,0,0.4);
+    --shadow-md:     0 4px 16px rgba(0,0,0,0.5);
+    --shadow-lg:     0 12px 40px rgba(0,0,0,0.7);
+    --shadow-glow:   0 0 30px var(--accent-glow);
+
+    --font-sans:     -apple-system, 'SF Pro Display', BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    --font-mono:     'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+
+    --transition:    all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-w:     240px;
+    --header-h:      60px;
+  }
+
+  /* ============================================
+     RESET & BASE
+  ============================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 15px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg-base);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  button { cursor: pointer; font-family: inherit; border: none; background: none; }
+  input, textarea, select { font-family: inherit; }
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+
+  ::selection { background: var(--accent-subtle); color: var(--accent-light); }
+
+  /* ============================================
+     LAYOUT
+  ============================================ */
+  #app { display: flex; height: 100vh; overflow: hidden; }
+
+  /* Sidebar */
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow-y: auto;
+    transition: var(--transition-slow);
+    z-index: 100;
+  }
+
+  .sidebar-logo {
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-icon {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, var(--accent), var(--cyan));
+    border-radius: var(--radius-md);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    box-shadow: 0 0 16px var(--accent-glow);
+  }
+
+  .logo-text { display: flex; flex-direction: column; }
+  .logo-name { font-size: 13px; font-weight: 700; letter-spacing: -0.2px; color: var(--text-primary); }
+  .logo-sub  { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
+
+  .sidebar-nav { padding: 12px 10px; flex: 1; }
+
+  .nav-section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0 8px;
+    margin: 16px 0 6px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 8px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    position: relative;
+    user-select: none;
+  }
+
+  .nav-item:hover { background: var(--bg-hover); color: var(--text-primary); }
+  .nav-item.active {
+    background: var(--accent-subtle);
+    color: var(--accent-light);
+  }
+  .nav-item.active .nav-icon { color: var(--accent-light); }
+
+  .nav-icon { width: 16px; height: 16px; opacity: 0.8; flex-shrink: 0; }
+  .nav-badge {
+    margin-left: auto;
+    background: var(--accent-subtle);
+    color: var(--accent-light);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: var(--radius-full);
+    min-width: 18px;
+    text-align: center;
+  }
+
+  .sidebar-footer {
+    padding: 14px 10px;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .tool-filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 12px;
+    color: var(--text-secondary);
+    width: 100%;
+    user-select: none;
+  }
+  .tool-filter-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+  .tool-filter-btn.active { background: var(--accent-subtle); color: var(--accent-light); }
+
+  .tool-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Main content */
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 0;
+  }
+
+  /* Header */
+  .header {
+    height: var(--header-h);
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 12px;
+    background: var(--bg-surface);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 50;
+  }
+
+  .mobile-menu-btn {
+    display: none;
+    width: 32px; height: 32px;
+    border-radius: var(--radius-md);
+    align-items: center; justify-content: center;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    transition: var(--transition);
+  }
+  .mobile-menu-btn:hover { color: var(--text-primary); background: var(--bg-hover); }
+
+  .search-bar {
+    flex: 1;
+    max-width: 460px;
+    position: relative;
+  }
+
+  .search-bar input {
+    width: 100%;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-full);
+    padding: 7px 14px 7px 36px;
+    font-size: 13px;
+    color: var(--text-primary);
+    outline: none;
+    transition: var(--transition);
+  }
+  .search-bar input:focus {
+    border-color: var(--accent);
+    background: var(--bg-overlay);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+  .search-bar input::placeholder { color: var(--text-muted); }
+
+  .search-icon {
+    position: absolute; left: 11px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+    width: 15px; height: 15px;
+  }
+
+  .search-shortcut {
+    position: absolute; right: 11px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: var(--text-muted);
+    background: var(--bg-overlay);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-family: var(--font-mono);
+    pointer-events: none;
+  }
+
+  .header-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 14px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    font-weight: 500;
+    transition: var(--transition);
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--accent-light); box-shadow: var(--shadow-glow); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-default);
+  }
+  .btn-ghost:hover { background: var(--bg-hover); color: var(--text-primary); border-color: var(--border-strong); }
+
+  .btn-icon {
+    width: 32px; height: 32px; padding: 0;
+    border-radius: var(--radius-md);
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+
+  .btn-danger { background: rgba(220,60,60,0.15); color: #ff6b6b; border: 1px solid rgba(220,60,60,0.25); }
+  .btn-danger:hover { background: rgba(220,60,60,0.25); }
+
+  /* Content area */
+  .content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+  }
+
+  /* Page sections */
+  .page { display: none; }
+  .page.active { display: block; animation: fadeIn 0.2s ease; }
+
+  @keyframes fadeIn { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform:none; } }
+  @keyframes slideUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform:none; } }
+  @keyframes scaleIn { from { opacity:0; transform: scale(0.95); } to { opacity:1; transform: scale(1); } }
+  @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+  @keyframes countUp { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform:none; } }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ============================================
+     STAT CARDS
+  ============================================ */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .stat-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+    animation: slideUp 0.3s ease backwards;
+  }
+  .stat-card:hover { border-color: var(--border-default); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+  .stat-card.purple::before { background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
+  .stat-card.cyan::before   { background: linear-gradient(90deg, var(--cyan), #00a8a0); }
+  .stat-card.pink::before   { background: linear-gradient(90deg, var(--pink), #c044a0); }
+  .stat-card.amber::before  { background: linear-gradient(90deg, var(--amber), #e89000); }
+
+  .stat-icon {
+    width: 36px; height: 36px;
+    border-radius: var(--radius-md);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  .stat-card.purple .stat-icon { background: var(--accent-subtle); }
+  .stat-card.cyan   .stat-icon { background: var(--cyan-subtle); }
+  .stat-card.pink   .stat-icon { background: var(--pink-subtle); }
+  .stat-card.amber  .stat-icon { background: var(--amber-subtle); }
+
+  .stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 4px;
+    animation: countUp 0.5s ease backwards;
+  }
+  .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+
+  /* ============================================
+     TOOLBAR / FILTER BAR
+  ============================================ */
+  .toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .toolbar-left { display: flex; align-items: center; gap: 8px; flex: 1; flex-wrap: wrap; }
+  .toolbar-right { display: flex; align-items: center; gap: 8px; }
+
+  .filter-select {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 6px 10px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    outline: none;
+    cursor: pointer;
+    transition: var(--transition);
+    appearance: none;
+    padding-right: 24px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235a5a7a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+  }
+  .filter-select:focus { border-color: var(--accent); color: var(--text-primary); }
+
+  .sort-select { background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 6px 10px; font-size: 12px; color: var(--text-secondary); outline: none; cursor: pointer; transition: var(--transition); appearance: none; padding-right: 24px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235a5a7a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
+  .sort-select:focus { border-color: var(--accent); color: var(--text-primary); }
+
+  .view-toggle { display: flex; background: var(--bg-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; }
+  .view-btn { padding: 6px 10px; font-size: 12px; color: var(--text-muted); cursor: pointer; transition: var(--transition); border: none; background: none; }
+  .view-btn.active { background: var(--accent-subtle); color: var(--accent-light); }
+  .view-btn:hover:not(.active) { color: var(--text-primary); }
+
+  .results-count { font-size: 12px; color: var(--text-muted); white-space: nowrap; padding: 0 4px; }
+
+  /* ============================================
+     SESSION GRID & CARDS
+  ============================================ */
+  .sessions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 14px;
+  }
+  .sessions-grid.list-view {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .session-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    cursor: default;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 0.25s ease backwards;
+  }
+  .session-card:hover {
+    border-color: var(--border-default);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .session-card.favorite-card { border-color: rgba(245,166,35,0.25); }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .tool-badge {
+    flex-shrink: 0;
+    width: 30px; height: 30px;
+    border-radius: var(--radius-md);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .card-title-area { flex: 1; min-width: 0; }
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+    margin-bottom: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .card-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .card-meta-sep { opacity: 0.4; }
+
+  .fav-btn {
+    width: 28px; height: 28px;
+    border-radius: var(--radius-md);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition);
+    flex-shrink: 0;
+    background: none; border: none;
+    font-size: 15px;
+  }
+  .fav-btn:hover { background: var(--amber-subtle); color: var(--amber); }
+  .fav-btn.active { color: var(--amber); }
+
+  .card-category {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-full);
+    padding: 2px 8px;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .card-notes {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 10px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .card-tags {
+    display: flex; flex-wrap: wrap; gap: 5px;
+    margin-bottom: 12px;
+  }
+  .tag-chip {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: var(--radius-full);
+    background: var(--accent-subtle);
+    color: var(--accent-light);
+    font-family: var(--font-mono);
+    letter-spacing: 0.2px;
+    cursor: default;
+    transition: var(--transition);
+  }
+  .tag-chip:hover { background: rgba(124,106,247,0.2); }
+
+  .card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-subtle);
+    gap: 8px;
+  }
+
+  .card-date { font-size: 11px; color: var(--text-muted); }
+
+  .card-actions { display: flex; align-items: center; gap: 4px; }
+  .card-action-btn {
+    width: 28px; height: 28px;
+    border-radius: var(--radius-md);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition);
+    background: none; border: none;
+    font-size: 13px;
+  }
+  .card-action-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+  .card-action-btn.open:hover { color: var(--cyan); background: var(--cyan-subtle); }
+  .card-action-btn.edit:hover { color: var(--accent-light); background: var(--accent-subtle); }
+  .card-action-btn.delete:hover { color: #ff6b6b; background: rgba(255,107,107,0.1); }
+
+  /* List view card */
+  .sessions-grid.list-view .session-card {
+    padding: 12px 16px;
+  }
+  .sessions-grid.list-view .session-card:hover { transform: none; }
+
+  .sessions-grid.list-view .card-header { margin-bottom: 6px; }
+  .sessions-grid.list-view .card-notes { display: none; }
+  .sessions-grid.list-view .card-category { margin-bottom: 6px; }
+
+  /* ============================================
+     TOOL COLOR MAPPING
+  ============================================ */
+  .tool-chatgpt  { background: rgba(16,163,127,0.15); color: var(--tool-chatgpt); }
+  .tool-claude   { background: rgba(204,120,92,0.15); color: var(--tool-claude); }
+  .tool-gemini   { background: rgba(66,133,244,0.15); color: var(--tool-gemini); }
+  .tool-grok     { background: rgba(29,161,242,0.15); color: var(--tool-grok); }
+  .tool-perplexity{background: rgba(32,184,205,0.15); color: var(--tool-perplexity); }
+  .tool-deepseek { background: rgba(99,102,241,0.15); color: var(--tool-deepseek); }
+  .tool-copilot  { background: rgba(0,120,212,0.15); color: var(--tool-copilot); }
+  .tool-other    { background: rgba(152,152,184,0.15); color: var(--tool-other); }
+
+  /* ============================================
+     EMPTY STATE
+  ============================================ */
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    text-align: center;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .empty-svg { margin-bottom: 28px; opacity: 0.9; }
+
+  .empty-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .empty-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 320px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  /* ============================================
+     MODAL
+  ============================================ */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .modal-overlay.open .modal { transform: none; opacity: 1; }
+
+  .modal {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-xl);
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    transform: scale(0.96) translateY(10px);
+    opacity: 0;
+    transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: none;
+  }
+
+  .modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 24px 0;
+    margin-bottom: 20px;
+    position: sticky; top: 0;
+    background: var(--bg-elevated);
+    z-index: 1;
+    padding-top: 24px;
+  }
+
+  .modal-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+  }
+
+  .modal-close {
+    width: 30px; height: 30px;
+    border-radius: var(--radius-md);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition);
+    background: none; border: none;
+    font-size: 16px;
+  }
+  .modal-close:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+  .modal-body { padding: 0 24px 24px; }
+
+  /* ============================================
+     FORM ELEMENTS
+  ============================================ */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full-width { grid-column: 1 / -1; }
+
+  .form-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.3px;
+  }
+  .form-label .required { color: var(--accent); margin-left: 2px; }
+
+  .form-input {
+    background: var(--bg-overlay);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: 9px 12px;
+    font-size: 13px;
+    color: var(--text-primary);
+    outline: none;
+    transition: var(--transition);
+    width: 100%;
+  }
+  .form-input::placeholder { color: var(--text-muted); }
+  .form-input:focus {
+    border-color: var(--accent);
+    background: var(--bg-surface);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+
+  textarea.form-input {
+    resize: vertical;
+    min-height: 90px;
+    line-height: 1.5;
+  }
+
+  select.form-input { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235a5a7a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+  select.form-input option { background: var(--bg-elevated); }
+
+  .form-actions {
+    display: flex; gap: 10px; justify-content: flex-end;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .tags-input-container {
+    background: var(--bg-overlay);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: 6px 10px;
+    display: flex; flex-wrap: wrap; gap: 5px; align-items: center;
+    cursor: text;
+    min-height: 40px;
+    transition: var(--transition);
+  }
+  .tags-input-container:focus-within {
+    border-color: var(--accent);
+    background: var(--bg-surface);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+
+  .tags-input-container .tag-pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: var(--accent-subtle);
+    color: var(--accent-light);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+  }
+  .tags-input-container .tag-pill button {
+    color: var(--accent);
+    font-size: 13px;
+    line-height: 1;
+    padding: 0;
+    cursor: pointer;
+  }
+  .tags-input-container .tag-pill button:hover { color: #ff6b6b; }
+
+  .tags-input-container input {
+    border: none; background: none; outline: none;
+    font-size: 12px; color: var(--text-primary);
+    min-width: 80px; flex: 1;
+    font-family: var(--font-mono);
+    padding: 2px 0;
+  }
+  .tags-input-container input::placeholder { color: var(--text-muted); }
+
+  .form-hint { font-size: 11px; color: var(--text-muted); }
+
+  /* ============================================
+     ANALYTICS PAGE
+  ============================================ */
+  .analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .chart-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    animation: slideUp 0.3s ease backwards;
+  }
+
+  .chart-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+  .chart-sub { font-size: 11px; color: var(--text-muted); margin-bottom: 20px; }
+
+  canvas.chart-canvas { width: 100% !important; }
+
+  /* Horizontal bar chart (pure CSS/JS) */
+  .bar-chart { display: flex; flex-direction: column; gap: 10px; }
+  .bar-item { display: flex; flex-direction: column; gap: 4px; }
+  .bar-label-row { display: flex; justify-content: space-between; align-items: center; }
+  .bar-label { font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; }
+  .bar-value-label { font-size: 12px; font-weight: 600; color: var(--text-primary); font-family: var(--font-mono); }
+  .bar-track { height: 6px; background: var(--bg-elevated); border-radius: 3px; overflow: hidden; }
+  .bar-fill {
+    height: 100%; border-radius: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0;
+  }
+
+  /* Donut/pie chart area */
+  .donut-wrapper { display: flex; align-items: center; gap: 20px; }
+  .donut-svg { flex-shrink: 0; }
+  .donut-legend { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-secondary); }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .legend-pct { font-family: var(--font-mono); font-weight: 600; color: var(--text-primary); margin-left: auto; font-size: 11px; }
+
+  /* ============================================
+     SETTINGS / IMPORT-EXPORT PAGE
+  ============================================ */
+  .settings-section {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 22px 24px;
+    margin-bottom: 14px;
+    animation: slideUp 0.3s ease backwards;
+  }
+  .settings-section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .settings-section-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.5; }
+  .settings-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .shortcut-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .shortcut-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 12px;
+    background: var(--bg-elevated);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+  }
+  .shortcut-desc { font-size: 12px; color: var(--text-secondary); }
+  .kbd-combo { display: flex; gap: 4px; }
+  kbd {
+    display: inline-flex; align-items: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: 4px;
+    padding: 2px 6px;
+    line-height: 1.4;
+    box-shadow: 0 1px 0 var(--border-strong);
+  }
+
+  /* ============================================
+     PAGE HEADER
+  ============================================ */
+  .page-title-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .page-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+  }
+  .page-subtitle { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ============================================
+     TOAST NOTIFICATIONS
+  ============================================ */
+  .toast-container {
+    position: fixed; bottom: 20px; right: 20px;
+    display: flex; flex-direction: column; gap: 8px;
+    z-index: 9999;
+    pointer-events: none;
+  }
+  .toast {
+    background: var(--bg-overlay);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    padding: 12px 16px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px;
+    color: var(--text-primary);
+    box-shadow: var(--shadow-md);
+    animation: slideUp 0.25s ease;
+    pointer-events: all;
+    max-width: 320px;
+    min-width: 220px;
+  }
+  .toast.success { border-color: rgba(52,209,110,0.3); }
+  .toast.error   { border-color: rgba(255,107,107,0.3); }
+  .toast.info    { border-color: var(--border-default); }
+  .toast-icon { font-size: 16px; }
+  .toast.success .toast-icon { color: var(--green); }
+  .toast.error   .toast-icon { color: #ff6b6b; }
+  .toast.info    .toast-icon { color: var(--accent-light); }
+  .toast-exit { animation: slideUp 0.2s ease reverse; }
+
+  /* ============================================
+     CONFIRM DIALOG
+  ============================================ */
+  .confirm-modal .modal { max-width: 380px; }
+  .confirm-body { padding: 0 24px 24px; }
+  .confirm-msg { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px; }
+  .confirm-actions { display: flex; gap: 10px; }
+
+  /* ============================================
+     SCROLLBAR IN MODAL
+  ============================================ */
+  .modal::-webkit-scrollbar { width: 4px; }
+  .modal::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 2px; }
+
+  /* ============================================
+     LOADING SKELETON
+  ============================================ */
+  .skeleton {
+    background: linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-hover) 50%, var(--bg-elevated) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--radius-md);
+  }
+
+  /* ============================================
+     RESPONSIVE
+  ============================================ */
+  @media (max-width: 900px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .analytics-grid { grid-template-columns: 1fr; }
+    .shortcut-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 700px) {
+    :root { --sidebar-w: 0px; }
+
+    .sidebar {
+      position: fixed; left: 0; top: 0; bottom: 0;
+      width: 240px;
+      transform: translateX(-100%);
+      z-index: 200;
+    }
+    .sidebar.mobile-open { transform: none; box-shadow: var(--shadow-lg); }
+    .sidebar-backdrop {
+      display: none;
+      position: fixed; inset: 0; z-index: 150;
+      background: rgba(0,0,0,0.5);
+    }
+    .sidebar-backdrop.active { display: block; }
+
+    .mobile-menu-btn { display: flex; }
+    .search-shortcut { display: none; }
+
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .sessions-grid { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+
+    .content { padding: 16px; }
+
+    .toolbar { flex-direction: column; align-items: flex-start; }
+    .toolbar-right { width: 100%; justify-content: flex-end; }
+  }
+
+  @media (max-width: 420px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .header-actions .btn-ghost { display: none; }
+  }
+
+  /* Category color cycling */
+  .cat-0 { background: rgba(124,106,247,0.12); color: #a594ff; }
+  .cat-1 { background: rgba(0,212,200,0.12); color: var(--cyan); }
+  .cat-2 { background: rgba(240,102,200,0.12); color: var(--pink); }
+  .cat-3 { background: rgba(245,166,35,0.12); color: var(--amber); }
+  .cat-4 { background: rgba(52,209,110,0.12); color: var(--green); }
+  .cat-5 { background: rgba(100,160,255,0.12); color: #64a0ff; }
+  .cat-6 { background: rgba(255,140,80,0.12); color: #ff8c50; }
+  .cat-7 { background: rgba(180,80,220,0.12); color: #b450dc; }
+
+  /* Focus ring */
+  *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  button:focus-visible, a:focus-visible { border-radius: var(--radius-md); }
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- Sidebar backdrop for mobile -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeMobileSidebar()"></div>
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+    <div class="sidebar-logo">
+      <div class="logo-icon" aria-hidden="true">🔐</div>
+      <div class="logo-text">
+        <span class="logo-name">AI Session Vault</span>
+        <span class="logo-sub">Every chat, organized.</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <p class="nav-section-label">Workspace</p>
+
+      <div class="nav-item active" id="nav-sessions" onclick="navigateTo('sessions')" role="button" tabindex="0" aria-label="All Sessions">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M2 3.5A1.5 1.5 0 013.5 2h9A1.5 1.5 0 0114 3.5v9a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 12.5v-9zm1.5-.5a.5.5 0 00-.5.5v9a.5.5 0 00.5.5h9a.5.5 0 00.5-.5v-9a.5.5 0 00-.5-.5h-9zM4 5.5A.5.5 0 014.5 5h7a.5.5 0 010 1h-7A.5.5 0 014 5.5zm0 2.5a.5.5 0 01.5-.5h7a.5.5 0 010 1h-7A.5.5 0 014 8zm0 2.5a.5.5 0 01.5-.5h4a.5.5 0 010 1h-4a.5.5 0 01-.5-.5z"/></svg>
+        All Sessions
+        <span class="nav-badge" id="nav-total-badge">0</span>
+      </div>
+
+      <div class="nav-item" id="nav-favorites" onclick="navigateTo('favorites')" role="button" tabindex="0" aria-label="Favorites">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
+        Favorites
+        <span class="nav-badge" id="nav-fav-badge">0</span>
+      </div>
+
+      <div class="nav-item" id="nav-analytics" onclick="navigateTo('analytics')" role="button" tabindex="0" aria-label="Analytics">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M11 2a1 1 0 00-1 1v10a1 1 0 002 0V3a1 1 0 00-1-1zm-5 2a1 1 0 00-1 1v8a1 1 0 002 0V5a1 1 0 00-1-1zm-5 4a1 1 0 00-1 1v4a1 1 0 002 0V9a1 1 0 00-1-1z"/></svg>
+        Analytics
+      </div>
+
+      <div class="nav-item" id="nav-settings" onclick="navigateTo('settings')" role="button" tabindex="0" aria-label="Settings & Backup">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 001.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 001.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 00.434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 00-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 00-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 00-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 00-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 00-1.187-1.187l-.283.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 00-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 00.434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 001.187-1.187l-.081-.283c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 001.622-.434l.071-.286zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0012.973 8.5zm0-1a4.998 4.998 0 00-7.557-3.779l2.834 3.78h4.723zM5.048 3.967c-.03.021-.058.043-.087.065l.087-.065zm-.431.355A4.984 4.984 0 003.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8 4.617 4.322zm.344 7.646.087.065-.087-.065z"/></svg>
+        Settings & Backup
+      </div>
+
+      <p class="nav-section-label" style="margin-top:22px;">Filter by Tool</p>
+      <div id="toolFilters"></div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div style="font-size:11px; color:var(--text-muted); padding:0 8px; line-height:1.5;">
+        <strong style="color:var(--text-secondary);">Pro tip:</strong> Use <kbd>Ctrl+K</kbd> to search, <kbd>Ctrl+N</kbd> for a new session.
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <div class="main">
+
+    <!-- Header -->
+    <header class="header" role="banner">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileSidebar()" aria-label="Toggle navigation">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 01.5-.5h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4a.5.5 0 01.5-.5h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4a.5.5 0 01.5-.5h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5z"/></svg>
+      </button>
+
+      <div class="search-bar">
+        <svg class="search-icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path d="M11.742 10.344a6.5 6.5 0 10-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 001.415-1.414l-3.85-3.85a1.007 1.007 0 00-.115-.1zM12 6.5a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z"/>
+        </svg>
+        <input
+          type="search"
+          id="globalSearch"
+          placeholder="Search sessions…"
+          aria-label="Search sessions"
+          oninput="handleSearch(this.value)"
+          autocomplete="off"
+        >
+        <span class="search-shortcut" aria-hidden="true">⌘K</span>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn btn-ghost" onclick="navigateTo('settings')" aria-label="Export backup">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M.5 9.9a.5.5 0 01.5.5v2.5a1 1 0 001 1h12a1 1 0 001-1v-2.5a.5.5 0 011 0v2.5a2 2 0 01-2 2H2a2 2 0 01-2-2v-2.5a.5.5 0 01.5-.5z"/><path d="M7.646 11.854a.5.5 0 00.708 0l3-3a.5.5 0 00-.708-.708L8.5 10.293V1.5a.5.5 0 00-1 0v8.793L5.354 8.146a.5.5 0 10-.708.708l3 3z"/></svg>
+          Backup
+        </button>
+        <button class="btn btn-primary" onclick="openAddModal()" aria-label="New session" id="newSessionBtn">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 4a.5.5 0 01.5.5v3h3a.5.5 0 010 1h-3v3a.5.5 0 01-1 0v-3h-3a.5.5 0 010-1h3v-3A.5.5 0 018 4z"/></svg>
+          New Session
+        </button>
+      </div>
+    </header>
+
+    <!-- ===================== CONTENT ===================== -->
+    <main class="content" id="mainContent" role="main">
+
+      <!-- ========== SESSIONS PAGE ========== -->
+      <div class="page active" id="page-sessions">
+        <div class="page-title-bar">
+          <div>
+            <h1 class="page-title">All Sessions</h1>
+            <p class="page-subtitle">Track every AI conversation across all your accounts</p>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid" id="statsGrid">
+          <div class="stat-card purple" style="animation-delay:0.05s">
+            <div class="stat-icon">🧠</div>
+            <div class="stat-value" id="stat-total">0</div>
+            <div class="stat-label">Total Sessions</div>
+          </div>
+          <div class="stat-card cyan" style="animation-delay:0.1s">
+            <div class="stat-icon">📂</div>
+            <div class="stat-value" id="stat-cats">0</div>
+            <div class="stat-label">Categories</div>
+          </div>
+          <div class="stat-card pink" style="animation-delay:0.15s">
+            <div class="stat-icon">🔑</div>
+            <div class="stat-value" id="stat-accounts">0</div>
+            <div class="stat-label">Accounts</div>
+          </div>
+          <div class="stat-card amber" style="animation-delay:0.2s">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-value" id="stat-favs">0</div>
+            <div class="stat-label">Favorites</div>
+          </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <select class="filter-select" id="filterTool" onchange="applyFilters()" aria-label="Filter by AI tool">
+              <option value="">All Tools</option>
+              <option value="ChatGPT">ChatGPT</option>
+              <option value="Claude">Claude</option>
+              <option value="Gemini">Gemini</option>
+              <option value="Grok">Grok</option>
+              <option value="Perplexity">Perplexity</option>
+              <option value="DeepSeek">DeepSeek</option>
+              <option value="Copilot">Copilot</option>
+              <option value="Other">Other</option>
+            </select>
+            <select class="filter-select" id="filterCategory" onchange="applyFilters()" aria-label="Filter by category">
+              <option value="">All Categories</option>
+            </select>
+            <select class="filter-select" id="filterAccount" onchange="applyFilters()" aria-label="Filter by account">
+              <option value="">All Accounts</option>
+            </select>
+            <button class="btn btn-ghost" id="favFilterBtn" onclick="toggleFavFilter()" aria-label="Show favorites only" style="padding:5px 10px; font-size:12px; gap:5px;">
+              ☆ Favorites Only
+            </button>
+            <span class="results-count" id="resultsCount" aria-live="polite"></span>
+          </div>
+          <div class="toolbar-right">
+            <select class="sort-select" id="sortBy" onchange="applyFilters()" aria-label="Sort sessions">
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+              <option value="updated">Last Updated</option>
+              <option value="favorites">Favorites First</option>
+              <option value="alpha">A–Z</option>
+            </select>
+            <div class="view-toggle" role="group" aria-label="View mode">
+              <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')" aria-label="Grid view" title="Grid view">⊞</button>
+              <button class="view-btn" id="listViewBtn" onclick="setView('list')" aria-label="List view" title="List view">☰</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sessions container -->
+        <div class="sessions-grid" id="sessionsGrid" role="list" aria-label="Sessions list"></div>
+
+        <!-- Empty state -->
+        <div class="empty-state" id="emptyState" style="display:none;" aria-live="polite">
+          <svg class="empty-svg" width="180" height="140" viewBox="0 0 180 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="20" width="140" height="100" rx="12" fill="rgba(124,106,247,0.08)" stroke="rgba(124,106,247,0.2)" stroke-width="1.5"/>
+            <rect x="36" y="38" width="60" height="8" rx="4" fill="rgba(124,106,247,0.3)"/>
+            <rect x="36" y="52" width="108" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+            <rect x="36" y="64" width="88" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
+            <rect x="36" y="76" width="100" height="6" rx="3" fill="rgba(255,255,255,0.05)"/>
+            <circle cx="145" cy="105" r="22" fill="rgba(124,106,247,0.15)" stroke="rgba(124,106,247,0.35)" stroke-width="1.5"/>
+            <path d="M137 105h16M145 97v16" stroke="rgba(165,148,255,0.8)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="50" cy="18" r="5" fill="rgba(0,212,200,0.4)"/>
+            <circle cx="135" cy="14" r="3.5" fill="rgba(240,102,200,0.4)"/>
+            <circle cx="165" cy="45" r="4" fill="rgba(245,166,35,0.4)"/>
+          </svg>
+          <h2 class="empty-title" id="emptyTitle">No sessions yet</h2>
+          <p class="empty-desc" id="emptyDesc">Save your first AI conversation to start building your personal knowledge vault. Track chats from ChatGPT, Claude, Gemini, and more.</p>
+          <button class="btn btn-primary" onclick="openAddModal()">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 4a.5.5 0 01.5.5v3h3a.5.5 0 010 1h-3v3a.5.5 0 01-1 0v-3h-3a.5.5 0 010-1h3v-3A.5.5 0 018 4z"/></svg>
+            Save First Session
+          </button>
+        </div>
+      </div>
+
+      <!-- ========== FAVORITES PAGE ========== -->
+      <div class="page" id="page-favorites">
+        <div class="page-title-bar">
+          <div>
+            <h1 class="page-title">Favorites</h1>
+            <p class="page-subtitle">Your starred sessions for quick access</p>
+          </div>
+        </div>
+        <div class="sessions-grid" id="favoritesGrid" role="list" aria-label="Favorite sessions"></div>
+        <div class="empty-state" id="favEmptyState" style="display:none;">
+          <svg class="empty-svg" width="160" height="130" viewBox="0 0 160 130" fill="none">
+            <path d="M80 28l9.8 19.8 21.9 3.2-15.85 15.44 3.74 21.76L80 78l-19.59 10.2 3.74-21.76L48.3 51 70.2 47.8z" fill="rgba(245,166,35,0.1)" stroke="rgba(245,166,35,0.4)" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <h2 class="empty-title">No favorites yet</h2>
+          <p class="empty-desc">Star any session to pin it here for quick access.</p>
+          <button class="btn btn-primary" onclick="navigateTo('sessions')">Browse Sessions</button>
+        </div>
+      </div>
+
+      <!-- ========== ANALYTICS PAGE ========== -->
+      <div class="page" id="page-analytics">
+        <div class="page-title-bar">
+          <div>
+            <h1 class="page-title">Analytics</h1>
+            <p class="page-subtitle">Insights across all your AI sessions</p>
+          </div>
+        </div>
+        <div class="analytics-grid" id="analyticsGrid"></div>
+      </div>
+
+      <!-- ========== SETTINGS PAGE ========== -->
+      <div class="page" id="page-settings">
+        <div class="page-title-bar">
+          <div>
+            <h1 class="page-title">Settings & Backup</h1>
+            <p class="page-subtitle">Manage your data, export, and import sessions</p>
+          </div>
+        </div>
+
+        <div class="settings-section" style="animation-delay:0.05s">
+          <div class="settings-section-title">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="color:var(--accent)"><path d="M.5 9.9a.5.5 0 01.5.5v2.5a1 1 0 001 1h12a1 1 0 001-1v-2.5a.5.5 0 011 0v2.5a2 2 0 01-2 2H2a2 2 0 01-2-2v-2.5a.5.5 0 01.5-.5z"/><path d="M7.646 11.854a.5.5 0 00.708 0l3-3a.5.5 0 00-.708-.708L8.5 10.293V1.5a.5.5 0 00-1 0v8.793L5.354 8.146a.5.5 0 10-.708.708l3 3z"/></svg>
+            Export Backup
+          </div>
+          <p class="settings-section-desc">Download all your session data as a JSON file. Keep this safe — it's your full backup that can be re-imported at any time, on any device.</p>
+          <div class="settings-actions">
+            <button class="btn btn-primary" onclick="exportData()">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M.5 9.9a.5.5 0 01.5.5v2.5a1 1 0 001 1h12a1 1 0 001-1v-2.5a.5.5 0 011 0v2.5a2 2 0 01-2 2H2a2 2 0 01-2-2v-2.5a.5.5 0 01.5-.5z"/><path d="M7.646 11.854a.5.5 0 00.708 0l3-3a.5.5 0 00-.708-.708L8.5 10.293V1.5a.5.5 0 00-1 0v8.793L5.354 8.146a.5.5 0 10-.708.708l3 3z"/></svg>
+              Download sessions.json
+            </button>
+          </div>
+        </div>
+
+        <div class="settings-section" style="animation-delay:0.1s">
+          <div class="settings-section-title">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="color:var(--cyan)"><path d="M.5 9.9a.5.5 0 01.5.5v2.5a1 1 0 001 1h12a1 1 0 001-1v-2.5a.5.5 0 011 0v2.5a2 2 0 01-2 2H2a2 2 0 01-2-2v-2.5a.5.5 0 01.5-.5z"/><path d="M7.646 1.146a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8.5 2.707V11.5a.5.5 0 01-1 0V2.707L5.354 4.854a.5.5 0 11-.708-.708l3-3z"/></svg>
+            Import Backup
+          </div>
+          <p class="settings-section-desc">Restore from a previously exported <code style="font-family:var(--font-mono);font-size:11px;background:var(--bg-elevated);padding:1px 5px;border-radius:3px;color:var(--accent-light)">sessions.json</code> file. Your existing data will be merged — no duplicates, no data loss.</p>
+          <div class="settings-actions">
+            <button class="btn btn-ghost" onclick="document.getElementById('importFileInput').click()">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M.5 9.9a.5.5 0 01.5.5v2.5a1 1 0 001 1h12a1 1 0 001-1v-2.5a.5.5 0 011 0v2.5a2 2 0 01-2 2H2a2 2 0 01-2-2v-2.5a.5.5 0 01.5-.5z"/><path d="M7.646 1.146a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L8.5 2.707V11.5a.5.5 0 01-1 0V2.707L5.354 4.854a.5.5 0 11-.708-.708l3-3z"/></svg>
+              Import sessions.json
+            </button>
+            <input type="file" id="importFileInput" accept=".json" onchange="importData(this)" style="display:none" aria-label="Import JSON file">
+          </div>
+        </div>
+
+        <div class="settings-section" style="animation-delay:0.15s">
+          <div class="settings-section-title">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="color:#ff6b6b"><path d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>
+            Danger Zone
+          </div>
+          <p class="settings-section-desc">Permanently delete all session data. This action cannot be undone. Export a backup first if you want to keep your data.</p>
+          <div class="settings-actions">
+            <button class="btn btn-danger" onclick="confirmClearAll()">
+              Clear All Data
+            </button>
+          </div>
+        </div>
+
+        <div class="settings-section" style="animation-delay:0.2s">
+          <div class="settings-section-title">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="color:var(--amber)">
+              <path d="M3.1.7a.5.5 0 01.4-.2h9a.5.5 0 01.4.2l2.976 3.974c.149.185.156.45.01.644L8.4 15.3a.5.5 0 01-.8 0L.1 5.3a.5.5 0 010-.6L3.1.7zm11.386 3.785l-1.806-2.41-.776 2.413 2.582-.003zm-3.633.004l.961-2.989H4.186l.963 2.995 5.704-.006zM5.47 5.495 8 13.366l2.532-7.876-5.062.005zm-1.371-.999-.78-2.422-1.818 2.425 2.598-.003zM1.499 5.5l5.113 6.817-2.192-6.82L1.5 5.5zm7.889 6.817 5.123-6.83-2.928.002-2.195 6.828z"/>
+            </svg>
+            Keyboard Shortcuts
+          </div>
+          <p class="settings-section-desc">Speed up your workflow with these keyboard shortcuts.</p>
+          <div class="shortcut-grid">
+            <div class="shortcut-item">
+              <span class="shortcut-desc">Search sessions</span>
+              <span class="kbd-combo"><kbd>Ctrl</kbd><kbd>K</kbd></span>
+            </div>
+            <div class="shortcut-item">
+              <span class="shortcut-desc">New session</span>
+              <span class="kbd-combo"><kbd>Ctrl</kbd><kbd>N</kbd></span>
+            </div>
+            <div class="shortcut-item">
+              <span class="shortcut-desc">Close modal</span>
+              <span class="kbd-combo"><kbd>Esc</kbd></span>
+            </div>
+            <div class="shortcut-item">
+              <span class="shortcut-desc">Go to sessions</span>
+              <span class="kbd-combo"><kbd>Ctrl</kbd><kbd>1</kbd></span>
+            </div>
+            <div class="shortcut-item">
+              <span class="shortcut-desc">Go to favorites</span>
+              <span class="kbd-combo"><kbd>Ctrl</kbd><kbd>2</kbd></span>
+            </div>
+            <div class="shortcut-item">
+              <span class="shortcut-desc">Go to analytics</span>
+              <span class="kbd-combo"><kbd>Ctrl</kbd><kbd>3</kbd></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-section" style="animation-delay:0.25s">
+          <div class="settings-section-title">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="color:var(--green)"><path d="M8 16A8 8 0 108 0a8 8 0 000 16zm.93-9.412l-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 110-2 1 1 0 010 2z"/></svg>
+            About
+          </div>
+          <p class="settings-section-desc" style="margin-bottom:0">
+            <strong style="color:var(--text-secondary)">AI Session Vault</strong> — All data is stored locally in your browser's IndexedDB. Nothing is sent to any server. Your privacy is 100% preserved.<br><br>
+            Built with pure HTML, CSS, and JavaScript. No frameworks, no dependencies, no tracking.
+          </p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ===================== ADD/EDIT MODAL ===================== -->
+<div class="modal-overlay" id="sessionModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" id="sessionModalContent">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modalTitle">New Session</h2>
+      <button class="modal-close" onclick="closeModal('sessionModal')" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="sessionForm" onsubmit="handleFormSubmit(event)" novalidate>
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label class="form-label" for="f-title">Session Title <span class="required">*</span></label>
+            <input type="text" id="f-title" class="form-input" placeholder="e.g. XSS bypass on login page, RAG pipeline design…" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-tool">AI Tool <span class="required">*</span></label>
+            <select id="f-tool" class="form-input" required>
+              <option value="">Select tool…</option>
+              <option value="ChatGPT">ChatGPT</option>
+              <option value="Claude">Claude</option>
+              <option value="Gemini">Gemini</option>
+              <option value="Grok">Grok</option>
+              <option value="Perplexity">Perplexity</option>
+              <option value="DeepSeek">DeepSeek</option>
+              <option value="Copilot">Copilot</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-category">Category</label>
+            <input type="text" id="f-category" class="form-input" placeholder="e.g. Bug Bounty, Research, College…" list="categoryList" autocomplete="off">
+            <datalist id="categoryList"></datalist>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-account">Account</label>
+            <input type="text" id="f-account" class="form-input" placeholder="e.g. personal@gmail.com, work@co.com" list="accountList" autocomplete="off">
+            <datalist id="accountList"></datalist>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-link">Chat Link</label>
+            <input type="url" id="f-link" class="form-input" placeholder="https://chat.openai.com/c/…">
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label" for="f-notes">Notes</label>
+            <textarea id="f-notes" class="form-input" placeholder="What was this session about? Key findings, decisions, follow-ups…" rows="4"></textarea>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label">Tags</label>
+            <div class="tags-input-container" id="tagsContainer" onclick="document.getElementById('tagInput').focus()">
+              <input type="text" id="tagInput" placeholder="Type tag and press Enter or Space…" onkeydown="handleTagInput(event)" autocomplete="off" aria-label="Add tags">
+            </div>
+            <p class="form-hint">Press Enter or Space to add a tag. Click × to remove.</p>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" onclick="closeModal('sessionModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="formSubmitBtn">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M10.97 4.97a.75.75 0 011.07 1.05l-3.99 4.99a.75.75 0 01-1.08.02L4.324 8.384a.75.75 0 111.06-1.06l2.094 2.093 3.473-4.425z"/></svg>
+            Save Session
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Dialog -->
+<div class="modal-overlay confirm-modal" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="confirmTitle">Confirm Action</h2>
+      <button class="modal-close" onclick="closeModal('confirmModal')" aria-label="Close">✕</button>
+    </div>
+    <div class="confirm-body">
+      <p class="confirm-msg" id="confirmMsg"></p>
+      <div class="confirm-actions">
+        <button class="btn btn-ghost" onclick="closeModal('confirmModal')">Cancel</button>
+        <button class="btn btn-danger" id="confirmActionBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer" aria-live="assertive" aria-atomic="true"></div>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+/* ==========================================================
+   DATABASE MODULE — IndexedDB wrapper
+========================================================== */
+const DB = (() => {
+  const DB_NAME    = 'AISessionVault';
+  const DB_VERSION = 1;
+  const STORE      = 'sessions';
+  let db = null;
+
+  function open() {
+    return new Promise((resolve, reject) => {
+      if (db) { resolve(db); return; }
+      const req = indexedDB.open(DB_NAME, DB_VERSION);
+      req.onerror = () => reject(req.error);
+      req.onsuccess = () => { db = req.result; resolve(db); };
+      req.onupgradeneeded = (e) => {
+        const store = e.target.result.createObjectStore(STORE, { keyPath: 'id' });
+        store.createIndex('aiTool',      'aiTool',      { unique: false });
+        store.createIndex('category',    'category',    { unique: false });
+        store.createIndex('account',     'account',     { unique: false });
+        store.createIndex('favorite',    'favorite',    { unique: false });
+        store.createIndex('createdDate', 'createdDate', { unique: false });
+      };
+    });
+  }
+
+  async function getAll() {
+    const d = await open();
+    return new Promise((resolve, reject) => {
+      const tx  = d.transaction(STORE, 'readonly');
+      const req = tx.objectStore(STORE).getAll();
+      req.onsuccess = () => resolve(req.result);
+      req.onerror   = () => reject(req.error);
+    });
+  }
+
+  async function put(session) {
+    const d = await open();
+    return new Promise((resolve, reject) => {
+      const tx  = d.transaction(STORE, 'readwrite');
+      const req = tx.objectStore(STORE).put(session);
+      req.onsuccess = () => resolve(req.result);
+      req.onerror   = () => reject(req.error);
+    });
+  }
+
+  async function remove(id) {
+    const d = await open();
+    return new Promise((resolve, reject) => {
+      const tx  = d.transaction(STORE, 'readwrite');
+      const req = tx.objectStore(STORE).delete(id);
+      req.onsuccess = () => resolve();
+      req.onerror   = () => reject(req.error);
+    });
+  }
+
+  async function clear() {
+    const d = await open();
+    return new Promise((resolve, reject) => {
+      const tx  = d.transaction(STORE, 'readwrite');
+      const req = tx.objectStore(STORE).clear();
+      req.onsuccess = () => resolve();
+      req.onerror   = () => reject(req.error);
+    });
+  }
+
+  async function bulkPut(sessions) {
+    const d = await open();
+    return new Promise((resolve, reject) => {
+      const tx = d.transaction(STORE, 'readwrite');
+      const st = tx.objectStore(STORE);
+      sessions.forEach(s => st.put(s));
+      tx.oncomplete = () => resolve();
+      tx.onerror    = () => reject(tx.error);
+    });
+  }
+
+  return { getAll, put, remove, clear, bulkPut };
+})();
+
+/* ==========================================================
+   APP STATE
+========================================================== */
+const State = {
+  sessions:     [],
+  filtered:     [],
+  currentPage:  'sessions',
+  editingId:    null,
+  searchQuery:  '',
+  filterTool:   '',
+  filterCat:    '',
+  filterAccount:'',
+  favOnly:      false,
+  sortBy:       'newest',
+  viewMode:     'grid',
+  currentTags:  [],
+  toolFilter:   '',   // from sidebar
+};
+
+/* ==========================================================
+   UTILITY FUNCTIONS
+========================================================== */
+function uid() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+}
+
+function formatDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  const now = new Date();
+  const diff = (now - d) / 1000;
+  if (diff < 60)       return 'just now';
+  if (diff < 3600)     return Math.floor(diff/60) + 'm ago';
+  if (diff < 86400)    return Math.floor(diff/3600) + 'h ago';
+  if (diff < 604800)   return Math.floor(diff/86400) + 'd ago';
+  return d.toLocaleDateString('en-US', { month:'short', day:'numeric', year: d.getFullYear() !== now.getFullYear() ? 'numeric' : undefined });
+}
+
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function toolClass(tool) {
+  return 'tool-' + (tool||'other').toLowerCase().replace(/[^a-z]/g,'');
+}
+
+function toolEmoji(tool) {
+  const map = { ChatGPT:'🤖', Claude:'🌊', Gemini:'♊', Grok:'𝕏', Perplexity:'🔍', DeepSeek:'🐋', Copilot:'🪁', Other:'🔮' };
+  return map[tool] || '🔮';
+}
+
+function toolColor(tool) {
+  const map = { ChatGPT: 'var(--tool-chatgpt)', Claude: 'var(--tool-claude)', Gemini: 'var(--tool-gemini)', Grok: 'var(--tool-grok)', Perplexity: 'var(--tool-perplexity)', DeepSeek: 'var(--tool-deepseek)', Copilot: 'var(--tool-copilot)', Other: 'var(--tool-other)' };
+  return map[tool] || 'var(--tool-other)';
+}
+
+// Cycle through category color classes
+const catMap = {};
+let catColorIdx = 0;
+function catColorClass(cat) {
+  if (!cat) return 'cat-0';
+  if (!catMap[cat]) catMap[cat] = 'cat-' + ((catColorIdx++) % 8);
+  return catMap[cat];
+}
+
+/* ==========================================================
+   TOAST NOTIFICATIONS
+========================================================== */
+function showToast(msg, type = 'info', duration = 3000) {
+  const icons = { success: '✓', error: '⚠', info: '◈' };
+  const container = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.setAttribute('role', 'alert');
+  t.innerHTML = `<span class="toast-icon">${icons[type]||'◈'}</span><span>${escapeHtml(msg)}</span>`;
+  container.appendChild(t);
+  setTimeout(() => {
+    t.classList.add('toast-exit');
+    setTimeout(() => t.remove(), 200);
+  }, duration);
+}
+
+/* ==========================================================
+   NAVIGATION
+========================================================== */
+function navigateTo(page) {
+  State.currentPage = page;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+  const pageEl = document.getElementById('page-' + page);
+  const navEl  = document.getElementById('nav-' + page);
+  if (pageEl) pageEl.classList.add('active');
+  if (navEl)  navEl.classList.add('active');
+
+  if (page === 'analytics') renderAnalytics();
+  if (page === 'favorites') renderFavorites();
+  closeMobileSidebar();
+}
+
+/* ==========================================================
+   MOBILE SIDEBAR
+========================================================== */
+function toggleMobileSidebar() {
+  const sidebar   = document.getElementById('sidebar');
+  const backdrop  = document.getElementById('sidebarBackdrop');
+  sidebar.classList.toggle('mobile-open');
+  backdrop.classList.toggle('active');
+}
+function closeMobileSidebar() {
+  document.getElementById('sidebar').classList.remove('mobile-open');
+  document.getElementById('sidebarBackdrop').classList.remove('active');
+}
+
+/* ==========================================================
+   MODAL MANAGEMENT
+========================================================== */
+function openModal(id) {
+  const el = document.getElementById(id);
+  el.classList.add('open');
+  setTimeout(() => {
+    const first = el.querySelector('input:not([type="hidden"]), select, textarea');
+    if (first) first.focus();
+  }, 100);
+}
+function closeModal(id) {
+  const el = document.getElementById(id);
+  el.classList.remove('open');
+  if (id === 'sessionModal') resetForm();
+}
+
+function openAddModal() {
+  State.editingId = null;
+  document.getElementById('modalTitle').textContent = 'New Session';
+  document.getElementById('formSubmitBtn').innerHTML = `<svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M10.97 4.97a.75.75 0 011.07 1.05l-3.99 4.99a.75.75 0 01-1.08.02L4.324 8.384a.75.75 0 111.06-1.06l2.094 2.093 3.473-4.425z"/></svg> Save Session`;
+  resetForm();
+  openModal('sessionModal');
+}
+
+function openEditModal(id) {
+  const s = State.sessions.find(x => x.id === id);
+  if (!s) return;
+  State.editingId = id;
+  document.getElementById('modalTitle').textContent = 'Edit Session';
+  document.getElementById('formSubmitBtn').innerHTML = `<svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M10.97 4.97a.75.75 0 011.07 1.05l-3.99 4.99a.75.75 0 01-1.08.02L4.324 8.384a.75.75 0 111.06-1.06l2.094 2.093 3.473-4.425z"/></svg> Update Session`;
+
+  document.getElementById('f-title').value    = s.title    || '';
+  document.getElementById('f-tool').value     = s.aiTool   || '';
+  document.getElementById('f-category').value = s.category || '';
+  document.getElementById('f-account').value  = s.account  || '';
+  document.getElementById('f-link').value     = s.chatLink || '';
+  document.getElementById('f-notes').value    = s.notes    || '';
+
+  State.currentTags = [...(s.tags || [])];
+  renderTagsUI();
+  openModal('sessionModal');
+}
+
+function resetForm() {
+  document.getElementById('sessionForm').reset();
+  State.currentTags = [];
+  renderTagsUI();
+  State.editingId = null;
+}
+
+/* ==========================================================
+   TAGS INPUT
+========================================================== */
+function handleTagInput(e) {
+  const input = e.target;
+  const val = input.value.trim().replace(/^#+/, '');
+  if ((e.key === 'Enter' || e.key === ' ' || e.key === ',') && val) {
+    e.preventDefault();
+    addTag(val);
+    input.value = '';
+  }
+  if (e.key === 'Backspace' && !input.value && State.currentTags.length) {
+    State.currentTags.pop();
+    renderTagsUI();
+  }
+}
+
+function addTag(tag) {
+  const clean = tag.toLowerCase().trim().replace(/\s+/g,'-').replace(/[^a-z0-9\-_]/g,'');
+  if (clean && !State.currentTags.includes(clean)) {
+    State.currentTags.push(clean);
+    renderTagsUI();
+  }
+}
+
+function removeTag(idx) {
+  State.currentTags.splice(idx, 1);
+  renderTagsUI();
+}
+
+function renderTagsUI() {
+  const container = document.getElementById('tagsContainer');
+  const input = document.getElementById('tagInput');
+  // Clear existing pills
+  container.querySelectorAll('.tag-pill').forEach(p => p.remove());
+  State.currentTags.forEach((t, i) => {
+    const pill = document.createElement('span');
+    pill.className = 'tag-pill';
+    pill.innerHTML = `#${escapeHtml(t)} <button type="button" onclick="removeTag(${i})" aria-label="Remove tag ${t}">×</button>`;
+    container.insertBefore(pill, input);
+  });
+}
+
+/* ==========================================================
+   FORM SUBMIT
+========================================================== */
+async function handleFormSubmit(e) {
+  e.preventDefault();
+  const title = document.getElementById('f-title').value.trim();
+  const tool  = document.getElementById('f-tool').value;
+  if (!title) { showToast('Session title is required', 'error'); document.getElementById('f-title').focus(); return; }
+  if (!tool)  { showToast('Please select an AI tool', 'error'); document.getElementById('f-tool').focus(); return; }
+
+  const now = new Date().toISOString();
+  if (State.editingId) {
+    const existing = State.sessions.find(s => s.id === State.editingId);
+    if (!existing) return;
+    existing.title       = title;
+    existing.aiTool      = tool;
+    existing.category    = document.getElementById('f-category').value.trim();
+    existing.account     = document.getElementById('f-account').value.trim();
+    existing.chatLink    = document.getElementById('f-link').value.trim();
+    existing.notes       = document.getElementById('f-notes').value.trim();
+    existing.tags        = [...State.currentTags];
+    existing.lastUpdated = now;
+    await DB.put(existing);
+    showToast('Session updated', 'success');
+  } else {
+    const session = {
+      id:          uid(),
+      title,
+      aiTool:      tool,
+      category:    document.getElementById('f-category').value.trim(),
+      account:     document.getElementById('f-account').value.trim(),
+      chatLink:    document.getElementById('f-link').value.trim(),
+      notes:       document.getElementById('f-notes').value.trim(),
+      tags:        [...State.currentTags],
+      createdDate: now,
+      lastUpdated: now,
+      favorite:    false,
+    };
+    State.sessions.unshift(session);
+    await DB.put(session);
+    showToast('Session saved!', 'success');
+  }
+
+  closeModal('sessionModal');
+  await loadSessions();
+}
+
+/* ==========================================================
+   SESSION CRUD
+========================================================== */
+async function toggleFavorite(id) {
+  const s = State.sessions.find(x => x.id === id);
+  if (!s) return;
+  s.favorite    = !s.favorite;
+  s.lastUpdated = new Date().toISOString();
+  await DB.put(s);
+  updateStats();
+  applyFilters();
+  renderFavorites();
+  updateNavBadges();
+}
+
+function confirmDelete(id) {
+  const s = State.sessions.find(x => x.id === id);
+  if (!s) return;
+  document.getElementById('confirmTitle').textContent = 'Delete Session?';
+  document.getElementById('confirmMsg').textContent   = `"${s.title}" will be permanently deleted. This cannot be undone.`;
+  const btn = document.getElementById('confirmActionBtn');
+  btn.textContent = 'Delete Session';
+  btn.onclick = () => deleteSession(id);
+  openModal('confirmModal');
+}
+
+async function deleteSession(id) {
+  closeModal('confirmModal');
+  State.sessions = State.sessions.filter(s => s.id !== id);
+  await DB.remove(id);
+  showToast('Session deleted', 'info');
+  await loadSessions();
+}
+
+function confirmClearAll() {
+  document.getElementById('confirmTitle').textContent = 'Clear All Data?';
+  document.getElementById('confirmMsg').textContent   = 'This will permanently delete ALL sessions. This cannot be undone. Export a backup first.';
+  const btn = document.getElementById('confirmActionBtn');
+  btn.textContent = 'Yes, Delete Everything';
+  btn.onclick = async () => {
+    closeModal('confirmModal');
+    await DB.clear();
+    State.sessions = [];
+    await loadSessions();
+    showToast('All data cleared', 'info');
+  };
+  openModal('confirmModal');
+}
+
+/* ==========================================================
+   LOAD & RENDER
+========================================================== */
+async function loadSessions() {
+  State.sessions = await DB.getAll();
+  updateStats();
+  populateFilters();
+  renderToolFilters();
+  applyFilters();
+  updateNavBadges();
+}
+
+function updateStats() {
+  const total    = State.sessions.length;
+  const cats     = new Set(State.sessions.map(s => s.category).filter(Boolean)).size;
+  const accounts = new Set(State.sessions.map(s => s.account).filter(Boolean)).size;
+  const favs     = State.sessions.filter(s => s.favorite).length;
+
+  animateCount('stat-total',    total);
+  animateCount('stat-cats',     cats);
+  animateCount('stat-accounts', accounts);
+  animateCount('stat-favs',     favs);
+}
+
+function animateCount(id, target) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const current = parseInt(el.textContent) || 0;
+  if (current === target) return;
+  const duration = 400;
+  const start = performance.now();
+  const step = (now) => {
+    const t = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1-t, 3);
+    el.textContent = Math.round(current + (target - current) * ease);
+    if (t < 1) requestAnimationFrame(step);
+    else el.textContent = target;
+  };
+  requestAnimationFrame(step);
+}
+
+function populateFilters() {
+  const cats     = [...new Set(State.sessions.map(s => s.category).filter(Boolean))].sort();
+  const accounts = [...new Set(State.sessions.map(s => s.account).filter(Boolean))].sort();
+
+  // Main filter selects
+  const catSel = document.getElementById('filterCategory');
+  const currCat = catSel.value;
+  catSel.innerHTML = '<option value="">All Categories</option>' +
+    cats.map(c => `<option value="${escapeHtml(c)}" ${currCat===c?'selected':''}>${escapeHtml(c)}</option>`).join('');
+
+  const accSel = document.getElementById('filterAccount');
+  const currAcc = accSel.value;
+  accSel.innerHTML = '<option value="">All Accounts</option>' +
+    accounts.map(a => `<option value="${escapeHtml(a)}" ${currAcc===a?'selected':''}>${escapeHtml(a)}</option>`).join('');
+
+  // Form datalists
+  document.getElementById('categoryList').innerHTML = cats.map(c => `<option value="${escapeHtml(c)}">`).join('');
+  document.getElementById('accountList').innerHTML  = accounts.map(a => `<option value="${escapeHtml(a)}">`).join('');
+}
+
+function renderToolFilters() {
+  const tools = [...new Set(State.sessions.map(s => s.aiTool).filter(Boolean))].sort();
+  const container = document.getElementById('toolFilters');
+  container.innerHTML = tools.map(tool => {
+    const isActive = State.toolFilter === tool;
+    return `<div class="tool-filter-btn ${isActive?'active':''}" onclick="setSidebarToolFilter('${escapeHtml(tool)}')" role="button" tabindex="0">
+      <span class="tool-dot" style="background:${toolColor(tool)}"></span>
+      ${escapeHtml(tool)}
+      <span style="margin-left:auto;font-size:10px;font-family:var(--font-mono);color:${isActive?'var(--accent-light)':'var(--text-muted)'}">
+        ${State.sessions.filter(s=>s.aiTool===tool).length}
+      </span>
+    </div>`;
+  }).join('');
+  if (tools.length === 0) container.innerHTML = `<p style="font-size:11px;color:var(--text-muted);padding:0 8px;">No tools yet</p>`;
+}
+
+function setSidebarToolFilter(tool) {
+  State.toolFilter = State.toolFilter === tool ? '' : tool;
+  document.getElementById('filterTool').value = State.toolFilter;
+  renderToolFilters();
+  navigateTo('sessions');
+  applyFilters();
+}
+
+function updateNavBadges() {
+  document.getElementById('nav-total-badge').textContent = State.sessions.length;
+  document.getElementById('nav-fav-badge').textContent   = State.sessions.filter(s=>s.favorite).length;
+}
+
+/* ==========================================================
+   SEARCH & FILTER
+========================================================== */
+function handleSearch(val) {
+  State.searchQuery = val.toLowerCase().trim();
+  applyFilters();
+}
+
+function toggleFavFilter() {
+  State.favOnly = !State.favOnly;
+  const btn = document.getElementById('favFilterBtn');
+  btn.style.background   = State.favOnly ? 'var(--amber-subtle)' : '';
+  btn.style.color        = State.favOnly ? 'var(--amber)' : '';
+  btn.style.borderColor  = State.favOnly ? 'rgba(245,166,35,0.3)' : '';
+  btn.textContent        = State.favOnly ? '★ Favorites Only' : '☆ Favorites Only';
+  applyFilters();
+}
+
+function applyFilters() {
+  const tool    = document.getElementById('filterTool').value || State.toolFilter;
+  const cat     = document.getElementById('filterCategory').value;
+  const account = document.getElementById('filterAccount').value;
+  const sort    = document.getElementById('sortBy').value;
+  State.sortBy  = sort;
+
+  let results = State.sessions.filter(s => {
+    if (tool    && s.aiTool   !== tool)    return false;
+    if (cat     && s.category !== cat)     return false;
+    if (account && s.account  !== account) return false;
+    if (State.favOnly && !s.favorite)      return false;
+
+    if (State.searchQuery) {
+      const q = State.searchQuery;
+      const haystack = [s.title, s.category, s.account, s.notes, s.aiTool, ...(s.tags||[])]
+        .join(' ').toLowerCase();
+      if (!haystack.includes(q)) return false;
+    }
+    return true;
+  });
+
+  // Sort
+  results = sortSessions(results, sort);
+  State.filtered = results;
+
+  renderSessionCards(results);
+  document.getElementById('resultsCount').textContent =
+    results.length !== State.sessions.length
+      ? `${results.length} of ${State.sessions.length}`
+      : `${results.length} session${results.length !== 1 ? 's' : ''}`;
+}
+
+function sortSessions(list, by) {
+  const copy = [...list];
+  switch(by) {
+    case 'newest':    return copy.sort((a,b) => b.createdDate.localeCompare(a.createdDate));
+    case 'oldest':    return copy.sort((a,b) => a.createdDate.localeCompare(b.createdDate));
+    case 'updated':   return copy.sort((a,b) => b.lastUpdated.localeCompare(a.lastUpdated));
+    case 'favorites': return copy.sort((a,b) => (b.favorite?1:0) - (a.favorite?1:0) || b.createdDate.localeCompare(a.createdDate));
+    case 'alpha':     return copy.sort((a,b) => a.title.localeCompare(b.title));
+    default: return copy;
+  }
+}
+
+function setView(mode) {
+  State.viewMode = mode;
+  const grid = document.getElementById('sessionsGrid');
+  document.getElementById('gridViewBtn').classList.toggle('active', mode==='grid');
+  document.getElementById('listViewBtn').classList.toggle('active', mode==='list');
+  grid.classList.toggle('list-view', mode==='list');
+}
+
+/* ==========================================================
+   RENDER SESSION CARDS
+========================================================== */
+function renderSessionCards(sessions) {
+  const grid  = document.getElementById('sessionsGrid');
+  const empty = document.getElementById('emptyState');
+  const emptyTitle = document.getElementById('emptyTitle');
+  const emptyDesc  = document.getElementById('emptyDesc');
+
+  if (!sessions.length) {
+    grid.innerHTML = '';
+    empty.style.display = 'flex';
+    if (State.searchQuery || State.filterTool || document.getElementById('filterCategory').value || document.getElementById('filterAccount').value || State.favOnly) {
+      emptyTitle.textContent = 'No sessions match your filters';
+      emptyDesc.textContent  = 'Try adjusting your search or filter criteria.';
+    } else {
+      emptyTitle.textContent = 'No sessions yet';
+      emptyDesc.textContent  = 'Save your first AI conversation to start building your personal knowledge vault.';
+    }
+    return;
+  }
+  empty.style.display = 'none';
+  grid.innerHTML = sessions.map((s, i) => buildSessionCard(s, i)).join('');
+}
+
+function buildSessionCard(s, index) {
+  const tClass = toolClass(s.aiTool);
+  const cClass = catColorClass(s.category);
+  const delay  = Math.min(index * 0.03, 0.4);
+
+  const tagsHtml = (s.tags||[]).slice(0,5).map(t =>
+    `<span class="tag-chip">#${escapeHtml(t)}</span>`
+  ).join('');
+  const moreTagsHtml = (s.tags||[]).length > 5
+    ? `<span class="tag-chip" style="opacity:0.6">+${(s.tags.length - 5)}</span>` : '';
+
+  return `
+  <article class="session-card ${s.favorite?'favorite-card':''}" style="animation-delay:${delay}s" role="listitem" aria-label="${escapeHtml(s.title)}">
+    <div class="card-header">
+      <div class="tool-badge ${tClass}">${toolEmoji(s.aiTool)}</div>
+      <div class="card-title-area">
+        <div class="card-title" title="${escapeHtml(s.title)}">${escapeHtml(s.title)}</div>
+        <div class="card-meta">
+          <span>${escapeHtml(s.aiTool||'')}</span>
+          ${s.account ? `<span class="card-meta-sep">·</span><span>${escapeHtml(s.account)}</span>` : ''}
+        </div>
+      </div>
+      <button class="fav-btn ${s.favorite?'active':''}" onclick="toggleFavorite('${s.id}')" aria-label="${s.favorite?'Remove from favorites':'Add to favorites'}" title="${s.favorite?'Remove from favorites':'Add to favorites'}">
+        ${s.favorite ? '★' : '☆'}
+      </button>
+    </div>
+    ${s.category ? `<span class="card-category ${cClass}">📂 ${escapeHtml(s.category)}</span>` : ''}
+    ${s.notes ? `<p class="card-notes">${escapeHtml(s.notes)}</p>` : ''}
+    ${(s.tags&&s.tags.length) ? `<div class="card-tags">${tagsHtml}${moreTagsHtml}</div>` : ''}
+    <div class="card-footer">
+      <span class="card-date" title="${new Date(s.createdDate).toLocaleString()}">${formatDate(s.createdDate)}</span>
+      <div class="card-actions">
+        ${s.chatLink ? `<button class="card-action-btn open" onclick="window.open('${escapeHtml(s.chatLink)}','_blank')" aria-label="Open chat link" title="Open chat">↗</button>` : ''}
+        <button class="card-action-btn edit" onclick="openEditModal('${s.id}')" aria-label="Edit session" title="Edit">✏</button>
+        <button class="card-action-btn delete" onclick="confirmDelete('${s.id}')" aria-label="Delete session" title="Delete">🗑</button>
+      </div>
+    </div>
+  </article>`;
+}
+
+/* ==========================================================
+   FAVORITES PAGE
+========================================================== */
+function renderFavorites() {
+  const favs  = sortSessions(State.sessions.filter(s => s.favorite), State.sortBy);
+  const grid  = document.getElementById('favoritesGrid');
+  const empty = document.getElementById('favEmptyState');
+
+  if (!favs.length) {
+    grid.innerHTML = '';
+    empty.style.display = 'flex';
+    return;
+  }
+  empty.style.display = 'none';
+  grid.innerHTML = favs.map((s, i) => buildSessionCard(s, i)).join('');
+}
+
+/* ==========================================================
+   ANALYTICS PAGE
+========================================================== */
+function renderAnalytics() {
+  const grid = document.getElementById('analyticsGrid');
+  if (!State.sessions.length) {
+    grid.innerHTML = `
+      <div class="chart-card" style="grid-column:1/-1">
+        <div class="empty-state" style="padding:40px 20px;">
+          <div style="font-size:40px;margin-bottom:12px">📊</div>
+          <h3 class="empty-title">No data yet</h3>
+          <p class="empty-desc">Add some sessions to see your usage analytics here.</p>
+        </div>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = `
+    <div class="chart-card" id="toolChart" style="animation-delay:0.05s">
+      <div class="chart-title">Sessions by AI Tool</div>
+      <div class="chart-sub">Which tools you use most</div>
+      <div class="bar-chart" id="toolBarChart"></div>
+    </div>
+    <div class="chart-card" id="catChart" style="animation-delay:0.1s">
+      <div class="chart-title">Sessions by Category</div>
+      <div class="chart-sub">Topic distribution</div>
+      <div class="bar-chart" id="catBarChart"></div>
+    </div>
+    <div class="chart-card" id="accountChart" style="animation-delay:0.15s">
+      <div class="chart-title">Most Active Accounts</div>
+      <div class="chart-sub">Sessions per account</div>
+      <div class="bar-chart" id="accBarChart"></div>
+    </div>
+    <div class="chart-card" id="toolPieChart" style="animation-delay:0.2s">
+      <div class="chart-title">Tool Share</div>
+      <div class="chart-sub">Distribution at a glance</div>
+      <div class="donut-wrapper" id="donutWrapper"></div>
+    </div>`;
+
+  // Tool bar chart
+  renderBarChart('toolBarChart', aggregateCounts('aiTool'), [
+    'var(--tool-chatgpt)', 'var(--tool-claude)', 'var(--tool-gemini)',
+    'var(--tool-grok)', 'var(--tool-perplexity)', 'var(--tool-deepseek)',
+    'var(--tool-copilot)', 'var(--tool-other)'
+  ]);
+
+  // Category bar chart
+  renderBarChart('catBarChart', aggregateCounts('category'), [
+    'var(--accent)', 'var(--cyan)', 'var(--pink)', 'var(--amber)',
+    'var(--green)', '#64a0ff', '#ff8c50', '#b450dc'
+  ]);
+
+  // Account bar chart
+  renderBarChart('accBarChart', aggregateCounts('account'), [
+    'var(--cyan)', 'var(--accent)', 'var(--pink)', 'var(--amber)',
+    'var(--green)', '#64a0ff', '#ff8c50', '#b450dc'
+  ]);
+
+  // Donut
+  renderDonut('donutWrapper', aggregateCounts('aiTool'));
+}
+
+function aggregateCounts(field) {
+  const map = {};
+  State.sessions.forEach(s => {
+    const key = s[field] || 'Unknown';
+    map[key] = (map[key]||0) + 1;
+  });
+  return Object.entries(map).sort((a,b) => b[1]-a[1]).slice(0, 8);
+}
+
+function renderBarChart(containerId, data, colors) {
+  const container = document.getElementById(containerId);
+  if (!container || !data.length) return;
+  const max = data[0][1];
+
+  container.innerHTML = data.map(([label, count], i) => {
+    const pct = Math.round((count / max) * 100);
+    const color = colors[i % colors.length];
+    return `<div class="bar-item">
+      <div class="bar-label-row">
+        <span class="bar-label">${escapeHtml(label)}</span>
+        <span class="bar-value-label">${count}</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill" data-width="${pct}" style="background:${color};width:0%"></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Animate bars after render
+  setTimeout(() => {
+    container.querySelectorAll('.bar-fill').forEach(el => {
+      el.style.width = el.dataset.width + '%';
+    });
+  }, 80);
+}
+
+function renderDonut(containerId, data) {
+  const container = document.getElementById(containerId);
+  if (!container || !data.length) return;
+
+  const total = data.reduce((s,[,c]) => s+c, 0);
+  const COLORS = [
+    'var(--accent)', 'var(--cyan)', 'var(--pink)', 'var(--amber)',
+    'var(--green)', '#64a0ff', '#ff8c50', '#b450dc'
+  ];
+  const SIZE = 110, R = 40, CX = 55, CY = 55;
+  const circumference = 2 * Math.PI * R;
+
+  let segments = '';
+  let offset   = 0;
+  data.slice(0, 8).forEach(([label, count], i) => {
+    const pct     = count / total;
+    const dashLen = pct * circumference;
+    const gap     = circumference - dashLen;
+    segments += `<circle
+      cx="${CX}" cy="${CY}" r="${R}"
+      fill="none"
+      stroke="${COLORS[i % COLORS.length]}"
+      stroke-width="14"
+      stroke-dasharray="${dashLen} ${gap}"
+      stroke-dashoffset="${-offset * circumference}"
+      transform="rotate(-90 ${CX} ${CY})"
+    />`;
+    offset += pct;
+  });
+
+  const legendItems = data.slice(0, 6).map(([label, count], i) => {
+    const pct = Math.round((count/total)*100);
+    return `<div class="legend-item">
+      <span class="legend-dot" style="background:${COLORS[i % COLORS.length]}"></span>
+      <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:80px">${escapeHtml(label)}</span>
+      <span class="legend-pct">${pct}%</span>
+    </div>`;
+  }).join('');
+
+  container.innerHTML = `
+    <svg class="donut-svg" width="${SIZE}" height="${SIZE}" viewBox="0 0 ${SIZE} ${SIZE}">
+      <circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="var(--bg-elevated)" stroke-width="14"/>
+      ${segments}
+      <text x="${CX}" y="${CY+1}" text-anchor="middle" dominant-baseline="middle" fill="var(--text-primary)" font-size="14" font-weight="700">${total}</text>
+      <text x="${CX}" y="${CY+14}" text-anchor="middle" dominant-baseline="middle" fill="var(--text-muted)" font-size="8">total</text>
+    </svg>
+    <div class="donut-legend">${legendItems}</div>`;
+}
+
+/* ==========================================================
+   IMPORT / EXPORT
+========================================================== */
+function exportData() {
+  const data = JSON.stringify({ version: 1, exportedAt: new Date().toISOString(), sessions: State.sessions }, null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `sessions-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast(`Exported ${State.sessions.length} sessions`, 'success');
+}
+
+function importData(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    try {
+      const parsed = JSON.parse(e.target.result);
+      let incoming = [];
+      if (Array.isArray(parsed))              incoming = parsed;
+      else if (Array.isArray(parsed.sessions)) incoming = parsed.sessions;
+      else throw new Error('Unrecognized format');
+
+      // Validate sessions minimally
+      const valid = incoming.filter(s => s && s.id && s.title);
+      if (!valid.length) { showToast('No valid sessions found in file', 'error'); return; }
+
+      // Merge: skip duplicate IDs
+      const existingIds = new Set(State.sessions.map(s => s.id));
+      const toAdd = valid.filter(s => !existingIds.has(s.id));
+
+      await DB.bulkPut(toAdd);
+      await loadSessions();
+      showToast(`Imported ${toAdd.length} new session${toAdd.length!==1?'s':''} (${valid.length - toAdd.length} duplicates skipped)`, 'success');
+    } catch(err) {
+      showToast('Import failed: ' + err.message, 'error');
+    }
+    input.value = '';
+  };
+  reader.readAsText(file);
+}
+
+/* ==========================================================
+   KEYBOARD SHORTCUTS
+========================================================== */
+document.addEventListener('keydown', (e) => {
+  // Ctrl/Cmd combos
+  const mod = e.ctrlKey || e.metaKey;
+
+  if (mod && e.key === 'k') { e.preventDefault(); document.getElementById('globalSearch').focus(); document.getElementById('globalSearch').select(); }
+  if (mod && e.key === 'n') { e.preventDefault(); openAddModal(); }
+  if (mod && e.key === '1') { e.preventDefault(); navigateTo('sessions'); }
+  if (mod && e.key === '2') { e.preventDefault(); navigateTo('favorites'); }
+  if (mod && e.key === '3') { e.preventDefault(); navigateTo('analytics'); }
+
+  if (e.key === 'Escape') {
+    closeModal('sessionModal');
+    closeModal('confirmModal');
+    closeMobileSidebar();
+  }
+});
+
+// Keyboard nav for sidebar items
+document.querySelectorAll('.nav-item').forEach(el => {
+  el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }});
+});
+
+/* ==========================================================
+   OVERLAY CLICK TO CLOSE
+========================================================== */
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      overlay.querySelectorAll('[id$="Modal"]').forEach(m => {
+        if (m.id) closeModal(m.closest('.modal-overlay').id);
+      });
+      closeModal(overlay.id);
+    }
+  });
+});
+
+/* ==========================================================
+   INIT
+========================================================== */
+(async () => {
+  await loadSessions();
+})();
+</script>
+</body>
 </html>
